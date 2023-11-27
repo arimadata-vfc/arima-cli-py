@@ -154,32 +154,53 @@ try:
 except TimeoutException:
     print("Timed out waiting for 'Please wait' text to disappear")
 
-time.sleep(3)
+import datetime
 
-# extract_all_tables = driver.find_element(By.CSS_SELECTOR, "div:nth-child(2) > .MuiButton-root")
-# extract_all_tables.click()
-# print("13")
-# print("CLICKED EXPORT BUTTON")
+# check if `data/Demographic_Deep_Dive_All_Tables.csv` exists
+# if it does, append current timestamp to end of filename
+old_file_name = "data/Demographic_Deep_Dive_All_Tables.csv"
+timestamp = datetime.datetime.now().strftime("%Y_%m_%d-%H_%M_%S")
+new_file_name = "data/Demographic_Deep_Dive_All_Tables_" + timestamp + ".csv"
 
-# time.sleep(3)
+if os.path.exists(old_file_name):
+    os.rename(old_file_name, new_file_name)
+else:
+    print(f"{old_file_name} not found.")
 
-# extract_all_tables = driver.find_element(By.CSS_SELECTOR, ".MuiMenuItem-root > a")
-# extract_all_tables.click()
-# print("CLICKED DOWNLOAD BUTTON")
+extract_all_tables = driver.find_element(By.CSS_SELECTOR, "div:nth-child(2) > .MuiButton-root")
+extract_all_tables.click()
+print("CLICKED EXPORT BUTTON")
 
-# print("130")
+extract_all_tables = driver.find_element(By.CSS_SELECTOR, ".MuiMenuItem-root > a")
+extract_all_tables.click()
+print("CLICKED DOWNLOAD BUTTON")
 
-# old_file_name = "data/Demographic_Deep_Dive_All_Tables.csv"
-# new_file_name = "data/data.csv"
+old_file_name = "data/Demographic_Deep_Dive_All_Tables.csv"
 
-# if os.path.exists(old_file_name):
-#     os.rename(old_file_name, new_file_name)
-# else:
-#     print(f"{old_file_name} not found.")
+timestamp = datetime.datetime.now().strftime("%Y\_%m\_%d-%H\_%M\_%S")
+new_file_name = f"data/data_{timestamp}.csv"
+
+if os.path.exists(old_file_name):
+    os.rename(old_file_name, new_file_name)
+else:
+    print(f"{old_file_name} not found.")
+
+time.sleep(1)
 
 # click on edit table variables
-button = driver.find_element(By.CSS_SELECTOR, ".MuiButton-outlined")
-button.click()
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".MuiButton-outlined")))
+
+driver.execute_script("arguments[0].click();", button)
+
+# button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".MuiButton-outlined")))
+# button.click()
+
+# button = driver.find_element(By.CSS_SELECTOR, ".MuiButton-outlined")
+# button.click()
 
 # wait to go back to variable selection screen
 try:
@@ -222,11 +243,6 @@ def click_div_with_text(driver, base_xpath, text):
 print("preclick")
 click_div_with_text(driver, "//div[3]/div[3]/div", "Grandparent")
 click_div_with_text(driver, "//div[3]/div[3]/div", "Head of Household")
-
-# element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[2]")
-# element.click()
-# element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[3]")
-# element.click()
 
 time.sleep(30)
 
