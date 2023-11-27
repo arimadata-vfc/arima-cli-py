@@ -22,53 +22,42 @@ chrome_options = Options()
 chrome_options.add_argument("--ignore-certificate-errors")
 # chrome_options.add_argument("user-data-dir=selenium")
 chrome_options.add_argument("--headless")
-print("a1")
 
-prefs = {"download.default_directory" : "C:\\Users\\MSadm\\Documents\\Sadman\\code\\arima\\arima-cli"}
+prefs = {"download.default_directory" : "C:\\Users\\MSadm\\Documents\\Sadman\\code\\arima\\arima-cli\\data"}
 chrome_options.add_experimental_option("prefs",prefs)
-print("a2")
+print("Setup options")
 
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
-print("a2")
+driver = webdriver.Chrome(
+    service=ChromeService(ChromeDriverManager().install()),
+    options=chrome_options
+)
+
 driver.get("https://arimadata.com/account")
-print("a3")
 
-cookies_file = "cookies.pkl"
-if os.path.isfile(cookies_file):
-    cookies = pickle.load(open(cookies_file, "rb"))
-    for cookie in cookies:
-        driver.add_cookie(cookie)
-else:
-    print("Cookies file not found.")
+time.sleep(1)
 
-# Wait until "Log In" text is found
 wait = WebDriverWait(driver, 180)
-login_found = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//*[contains(text(), 'Log In')]")))
 
-if login_found:
-    print("Login screen found")
-    # Find the input field and type "user"
-    input_field = driver.find_element(By.ID, "outlined-email")
-    input_field.send_keys(ARIMA_USER)
+if driver.current_url == "https://arimadata.com/account":
+    login_found = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//*[contains(text(), 'Log In')]")))
 
-    # Find the password field and type "password"
-    password_field = driver.find_element(By.ID, "outlined-password")
-    password_field.send_keys(ARIMA_PASS)
+    if login_found:
+        print("Login screen found")
+        # Find the input field and type "user"
+        input_field = driver.find_element(By.ID, "outlined-email")
+        input_field.send_keys(ARIMA_USER)
 
-    # Find the login button and click it
-    login_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Log In')]")
-    login_button.click()
-print("2")
+        # Find the password field and type "password"
+        password_field = driver.find_element(By.ID, "outlined-password")
+        password_field.send_keys(ARIMA_PASS)
 
-# After logging in, save the cookies to a file
-pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
+        # Find the login button and click it
+        login_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Log In')]")
+        login_button.click()
 
-time.sleep(2)
+        print("Clicked login button")
 
-# Find the Dashboard button and click it
-# dashboard_button = driver.find_element(By.XPATH, "//div[contains(text(), 'Dashboard')]")
-# dashboard_button.click()
-print("3")
+time.sleep(1)
 
 driver.get("https://arimadata.com/dashboard/module")
 
@@ -87,16 +76,14 @@ def click_with_custom_wait(driver, wait, xpath):
 
 # Wait for "Persona Builder" to show up and then click on it
 click_with_custom_wait(driver, wait, "//div[contains(text(), 'Persona Builder')]")
-# persona_builder = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Persona Builder')]")))
-# persona_builder.click()
 print("4")
 
 click_with_custom_wait(driver, wait, "//div[contains(text(), 'General')]")
 print("5")
 
-# general_audience = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'General')]")))
-# general_audience.click()
-# print("5")
+general_audience = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'General')]")))
+general_audience.click()
+print("5")
 
 select_audience = driver.find_element(By.XPATH, "//button[contains(text(), 'Select Audience')]")
 select_audience.click()
@@ -111,27 +98,57 @@ try:
 except TimeoutException:
     print("Timed out waiting for 'Please wait' text to disappear")
 
-# TEST
-element = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p[contains(text(), 'Demography')]")))
-element.click()
+def get_theme_or_cat(driver, wait, theme_name):
+    theme_found = False
+    while not theme_found:
+        try:
+            theme = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p[contains(text(), '" + theme_name + "')]")))
+            theme.click()
+            theme_found = True
+        except StaleElementReferenceException:
+            continue
+
+get_theme_or_cat(driver, wait, "Demography")
 print("7")
 
-element = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p[contains(text(), 'Household Status')]")))
-element.click()
+get_theme_or_cat(driver, wait, "Household Status")
 print("8")
+
+from selenium.webdriver.common.by import By
+
+def find_nth_child_with_text(driver, base_selector, text):
+    i = 1
+    while True:
+        try:
+            element = driver.find_element(By.CSS_SELECTOR, f"{base_selector}:nth-child({i})")
+            if text in element.text:
+                return element
+        except:
+            return None
+        i += 1
+
+def click_nth_child_with_text(driver, base_selector, text):
+    element = find_nth_child_with_text(driver, base_selector, text)
+    if element is not None:
+        print("Element found:", element)
+        element.click()
+    else:
+        print("Element not found")
+
+click_nth_child_with_text(driver, ".css-wo8ext", "Head of Household")
 
 # element = driver.find_element(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'css-wo8ext')]//p[contains(text(), 'Head of Household')]")
 # driver.execute_script("arguments[0].click();", element)
-element = driver.find_element(By.CSS_SELECTOR, ".css-wo8ext:nth-child(2)")
-element.click()
+# element = driver.find_element(By.CSS_SELECTOR, ".css-wo8ext:nth-child(2)")
+# element.click()
 print("9")
 
-time.sleep(3)
+click_nth_child_with_text(driver, ".css-wo8ext", "Grandparent")
 
 # grandparent_checkbox = driver.find_element(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'css-wo8ext')]//p[contains(text(), 'Grandparent')]")
 # driver.execute_script("arguments[0].click();", grandparent_checkbox)
-grandparent_checkbox = driver.find_element(By.CSS_SELECTOR, ".css-wo8ext:nth-child(3)")
-grandparent_checkbox.click()
+# grandparent_checkbox = driver.find_element(By.CSS_SELECTOR, ".css-wo8ext:nth-child(3)")
+# grandparent_checkbox.click()
 print("14")
 print("BOTH CHECKBOXES CLICKED")
 time.sleep(3)
