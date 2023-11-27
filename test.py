@@ -187,20 +187,46 @@ try:
 except TimeoutException:
     print("Timed out waiting for 'Please wait' text to disappear")
 
-time.sleep(3)
+time.sleep(1)
 
+from selenium.common.exceptions import NoSuchElementException
 
+def find_div_with_text(driver, base_xpath, text):
+    try:
+        element = driver.find_element(By.XPATH, f"{base_xpath}")
+        print("0 ", element.text)
+        if text in element.text:
+            return element
+    except NoSuchElementException:
+        pass
 
-# unselect head of household, grandparent
-# click_nth_child_with_text(driver, ".css-wo8ext", "Grandparent")
-# print("Grandparent unselected")
-# click_nth_child_with_text(driver, ".css-wo8ext", "Head of Household")
+    i = 2
+    while True:
+        try:
+            element = driver.find_element(By.XPATH, f"{base_xpath}[{i}]")
+            print(i, " ", element.text)
+            if text in element.text:
+                return element
+        except NoSuchElementException:
+            return None
+        i += 1
+
+def click_div_with_text(driver, base_xpath, text):
+    element = find_div_with_text(driver, "//div[3]/div[3]/div", text)
+    if element is not None:
+        print("Element found: ", text)
+        element.click()
+    else:
+        print("Element not found")
 
 print("preclick")
-element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[2]")
-element.click()
-element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[3]")
-element.click()
+click_div_with_text(driver, "//div[3]/div[3]/div", "Grandparent")
+click_div_with_text(driver, "//div[3]/div[3]/div", "Head of Household")
+
+# element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[2]")
+# element.click()
+# element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[3]")
+# element.click()
 
 time.sleep(30)
 
