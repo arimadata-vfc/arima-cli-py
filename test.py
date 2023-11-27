@@ -12,6 +12,7 @@ import os
 import requests
 import pickle
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException
 
 load_dotenv()
 ARIMA_USER = os.getenv("ARIMA_USER")
@@ -107,11 +108,49 @@ def get_theme_or_cat(driver, wait, theme_name):
         except StaleElementReferenceException:
             continue
 
-get_theme_or_cat(driver, wait, "Demography")
-print("7")
+# get_theme_or_cat(driver, wait, "Demography")
+# print("7")
 
-get_theme_or_cat(driver, wait, "Household Status")
-print("8")
+# get_theme_or_cat(driver, wait, "Household Status")
+# print("8")
+
+def build_var_lists(driver, base_xpath, vars, start, initial = True):
+    if initial:
+        try:
+            element = driver.find_element(By.XPATH, f"{base_xpath}")
+            if element.text != "":
+                vars.append(element.text)
+        except NoSuchElementException:
+            pass
+
+    i = start
+    invalid_count = 0
+    while True:
+        try:
+            element = driver.find_element(By.XPATH, f"{base_xpath}[{i}]")
+            if element.text != "":
+                vars.append(element.text)
+        except NoSuchElementException:
+            invalid_count += 1
+            if invalid_count > 10:
+                return None
+            continue
+        i += 1
+
+themes = []
+build_var_lists(driver, "//div[1]/div/div", themes, start = 3, initial = False)
+print("themes = ", themes)
+
+time.sleep(10)
+
+for theme in themes:
+    print("theme = ", theme)
+    get_theme_or_cat(driver, wait, theme)
+    categories = []
+    build_var_lists(driver, "//div[2]/div[2]/div", themes, start = 1)
+    print("categories = ", themes)
+
+time.sleep(10)
 
 from selenium.webdriver.common.by import By
 
