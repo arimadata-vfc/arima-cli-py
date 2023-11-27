@@ -11,7 +11,6 @@ from dotenv import load_dotenv
 import os
 import requests
 import pickle
-import os
 from selenium.common.exceptions import StaleElementReferenceException
 
 load_dotenv()
@@ -21,7 +20,7 @@ ARIMA_PASS = os.getenv("ARIMA_PASS")
 chrome_options = Options()
 chrome_options.add_argument("--ignore-certificate-errors")
 # chrome_options.add_argument("user-data-dir=selenium")
-chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--headless")
 
 prefs = {"download.default_directory" : "C:\\Users\\MSadm\\Documents\\Sadman\\code\\arima\\arima-cli\\data"}
 chrome_options.add_experimental_option("prefs",prefs)
@@ -121,6 +120,8 @@ def find_nth_child_with_text(driver, base_selector, text):
     while True:
         try:
             element = driver.find_element(By.CSS_SELECTOR, f"{base_selector}:nth-child({i})")
+            print("i = ", i)
+            print("element.text = ", element.text)
             if text in element.text:
                 return element
         except:
@@ -130,32 +131,20 @@ def find_nth_child_with_text(driver, base_selector, text):
 def click_nth_child_with_text(driver, base_selector, text):
     element = find_nth_child_with_text(driver, base_selector, text)
     if element is not None:
-        print("Element found:", element)
+        print("Element found: ", text)
         element.click()
     else:
         print("Element not found")
 
 click_nth_child_with_text(driver, ".css-wo8ext", "Head of Household")
 
-# element = driver.find_element(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'css-wo8ext')]//p[contains(text(), 'Head of Household')]")
-# driver.execute_script("arguments[0].click();", element)
-# element = driver.find_element(By.CSS_SELECTOR, ".css-wo8ext:nth-child(2)")
-# element.click()
-print("9")
-
 click_nth_child_with_text(driver, ".css-wo8ext", "Grandparent")
 
-# grandparent_checkbox = driver.find_element(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'css-wo8ext')]//p[contains(text(), 'Grandparent')]")
-# driver.execute_script("arguments[0].click();", grandparent_checkbox)
-# grandparent_checkbox = driver.find_element(By.CSS_SELECTOR, ".css-wo8ext:nth-child(3)")
-# grandparent_checkbox.click()
-print("14")
 print("BOTH CHECKBOXES CLICKED")
 time.sleep(3)
 
 analyze_button = driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained")
 analyze_button.click()
-# driver.execute_script("arguments[0].click();", d)
 print("11")
 print("CLICKED ANALYZE BUTTON")
 time.sleep(3)
@@ -167,50 +156,53 @@ except TimeoutException:
 
 time.sleep(3)
 
-# Find and click on the element
-# target_element = driver.find_element(By.CSS_SELECTOR, "div:nth-child(2) > .MuiButton-root")
-# target_element = driver.find_element(By.CSS_SELECTOR, ".MuiButton-contained")
-# target_element.click()
-
-# export_button = driver.find_element(By.XPATH, "//button[contains(@class, 'MuiButton-root') and contains(@class, 'MuiButton-text') and contains(@class, 'MuiButton-textPrimary') and contains(@class, 'MuiButton-sizeMedium') and contains(@class, 'MuiButton-textSizeMedium') and contains(@class, 'MuiButtonBase-root') and contains(@class, 'css-tflhij')]")
-# export_button.click()
-print("15")
-
-time.sleep(3)
-
-# extract_all_tables = driver.find_element(By.XPATH, "//button[contains(text(),'Export')]")
-extract_all_tables = driver.find_element(By.CSS_SELECTOR, "div:nth-child(2) > .MuiButton-root")
-extract_all_tables.click()
-print("13")
-print("CLICKED EXPORT BUTTON")
-
-time.sleep(3)
-
-# extract_all_tables = driver.find_element(By.XPATH, "//a[contains(text(),'Extract All Tables to CSV')]")
-extract_all_tables = driver.find_element(By.CSS_SELECTOR, ".MuiMenuItem-root > a")
-extract_all_tables.click()
-print("CLICKED DOWNLOAD BUTTON")
-
-print("130")
-
-# export_button = driver.find_element(By.XPATH, "//button[contains(@class, 'MuiButton-root') and contains(@class, 'MuiButton-text') and contains(@class, 'MuiButton-textPrimary') and contains(@class, 'MuiButton-sizeMedium') and contains(@class, 'MuiButton-textSizeMedium') and contains(@class, 'MuiButtonBase-root') and contains(@class, 'css-tflhij')]")
-# export_button.click()
-# print("15")
-
-# # Find and click on the element
-# extract_all_tables = driver.find_element(By.XPATH, "//li[contains(@class, 'MuiMenuItem-root') and contains(@class, 'MuiMenuItem-gutters') and contains(@class, 'MuiButtonBase-root') and contains(@class, 'css-7w1seg')]//a[contains(text(), 'Extract All Tables to CSV')]")
-# # extract_all_tables.click()
-# driver.execute_script("arguments[0].click();", extract_all_tables)
+# extract_all_tables = driver.find_element(By.CSS_SELECTOR, "div:nth-child(2) > .MuiButton-root")
+# extract_all_tables.click()
 # print("13")
+# print("CLICKED EXPORT BUTTON")
 
-time.sleep(2)
+# time.sleep(3)
 
-# driver_cookies = driver.get_cookies()
-# cookies_copy = {}
-# for driver_cookie in driver_cookies:
-#     cookies_copy[driver_cookie["name"]] = driver_cookie["value"]
-# r = requests.get('url',cookies = cookies_copy)
-# print r.text
+# extract_all_tables = driver.find_element(By.CSS_SELECTOR, ".MuiMenuItem-root > a")
+# extract_all_tables.click()
+# print("CLICKED DOWNLOAD BUTTON")
+
+# print("130")
+
+# old_file_name = "data/Demographic_Deep_Dive_All_Tables.csv"
+# new_file_name = "data/data.csv"
+
+# if os.path.exists(old_file_name):
+#     os.rename(old_file_name, new_file_name)
+# else:
+#     print(f"{old_file_name} not found.")
+
+# click on edit table variables
+button = driver.find_element(By.CSS_SELECTOR, ".MuiButton-outlined")
+button.click()
+
+# wait to go back to variable selection screen
+try:
+    WebDriverWait(driver, 180).until(EC.invisibility_of_element_located((By.XPATH, "//*[contains(text(), 'Please wait while we compile your audience')]")))
+except TimeoutException:
+    print("Timed out waiting for 'Please wait' text to disappear")
+
+time.sleep(3)
+
+
+
+# unselect head of household, grandparent
+# click_nth_child_with_text(driver, ".css-wo8ext", "Grandparent")
+# print("Grandparent unselected")
+# click_nth_child_with_text(driver, ".css-wo8ext", "Head of Household")
+
+print("preclick")
+element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[2]")
+element.click()
+element = driver.find_element(By.XPATH, "//div[3]/div[3]/div[3]")
+element.click()
+
+time.sleep(30)
 
 driver.close()
 driver.quit()
