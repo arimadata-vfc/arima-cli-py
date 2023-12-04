@@ -348,7 +348,7 @@ ARIMA_PASS = os.getenv("ARIMA_PASS")
 chrome_options = Options()
 chrome_options.add_argument("--ignore-certificate-errors")
 # chrome_options.add_argument("user-data-dir=selenium")
-# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("window-size=3840x2160")
 
 prefs = {"download.default_directory" : "C:\\Users\\MSadm\\Documents\\Sadman\\code\\arima\\arima-cli\\data"}
@@ -426,11 +426,8 @@ try:
 except TimeoutException:
     print("Timed out waiting for 'Please wait' text to disappear")
 
-elements = driver.find_elements(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p")
-texts = [element.text for element in elements]
-print("1texts = ", texts)
-
 def get_theme_or_cat(driver, wait, theme_name):
+    theme = None
     theme_found = False
     while not theme_found:
         try:
@@ -441,6 +438,49 @@ def get_theme_or_cat(driver, wait, theme_name):
             theme_found = True
         except StaleElementReferenceException:
             continue
+    return theme
+
+def get_all_texts(driver, base_selector):
+    i = 1
+    texts = []
+    while True:
+        try:
+            element = driver.find_element(By.CSS_SELECTOR, f"{base_selector}:nth-child({i})")
+            actions = ActionChains(driver)
+            actions.move_to_element(element).perform()
+            texts.append(element.text)
+        except:
+            break
+        i += 1
+    return texts
+
+start_theme = False
+start_cat = False
+with open("words.txt", "w") as file:
+    for theme in themes:
+        if theme == "Health and Wellness":
+            start_theme = True
+        if not start_theme:
+            continue
+        print("theme = ", theme, file=file)
+        curr_theme = get_theme_or_cat(driver, wait, theme)
+        # time.sleep(4)
+        for category in categories[theme]:
+            if category == "Make":
+                start_cat = True
+            if not start_cat:
+                continue
+            print("category = ", category, file=file)
+            curr_cat = get_theme_or_cat(driver, wait, category)
+            # time.sleep(4)
+            texts = get_all_texts(driver, ".css-wo8ext")
+            print("texts = ", texts, file=file)
+            actions = ActionChains(driver)
+            actions.move_to_element(curr_cat).perform()
+            driver.execute_script("arguments[0].click();", curr_cat)
+        actions = ActionChains(driver)
+        actions.move_to_element(curr_theme).perform()
+        driver.execute_script("arguments[0].click();", curr_theme)
 
 # theme = "Demography"
 # theme = "Health and Wellness"
@@ -460,25 +500,6 @@ get_theme_or_cat(driver, wait, theme)
 get_theme_or_cat(driver, wait, category)
 
 print("Selected theme and category")
-
-elements = driver.find_elements(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p")
-texts = [element.text for element in elements]
-print("2texts = ", texts)
-
-
-def get_all_texts(driver, base_selector):
-    i = 1
-    texts = []
-    while True:
-        try:
-            element = driver.find_element(By.CSS_SELECTOR, f"{base_selector}:nth-child({i})")
-            actions = ActionChains(driver)
-            actions.move_to_element(element).perform()
-            texts.append(element.text)
-        except:
-            break
-        i += 1
-    return texts
 
 def find_nth_child_with_text(driver, base_selector, text):
     i = 1
