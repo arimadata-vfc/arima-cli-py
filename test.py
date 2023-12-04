@@ -1,3 +1,328 @@
+themes = ["Demography", "Food and Drinks", "Health and Wellness", "Home", "Lifestyle", "Location", "Media", "Media Usage", "Professional Life", "Segments", "Shopping"]
+categories = {
+    "Demography": [
+        "Demographics",
+        "Education",
+        "Household Composition",
+        "Household Status",
+        "Language",
+        "Marriage / Partnership",
+        "Psychographics",
+        "Workplace"
+    ],
+    "Food and Drinks": [
+        "Beer",
+        "Beer / Wine / Liquor / Spirits",
+        "Bourbon",
+        "Chewing Gum",
+        "Chewy / Gummy Candies",
+        "Chocolate / Candy Bars",
+        "Cider",
+        "Cocktail Mixers (Pre-Mixed)",
+        "Coffee",
+        "Cognac",
+        "Coolers",
+        "Cordials & Liqueurs",
+        "Corn / Tortilla Chips & Cheese Snacks",
+        "Energy / Sport Drinks",
+        "Flavoured Beverage Enhancers (e.g. Mio)",
+        "Fruit Drinks / Punches",
+        "Gin",
+        "Hard Candy / Mints",
+        "Iced Tea / Kombucha",
+        "Irish Whiskey",
+        "Kids Snacks",
+        "Meat Snacks",
+        "Non-Carbonated Bottled Water",
+        "Nuts / Seeds",
+        "Popcorn",
+        "Potato Chips",
+        "Prepared Mixed Drinks With Liquor",
+        "Pretzels",
+        "Ready to Drink Cold Coffee (Can or Bottle)",
+        "Restaurant Visits",
+        "Rice Cakes / Corn Cakes / Potato Crisps",
+        "Rum",
+        "Rye / Canadian Whisky",
+        "Scotch Whisky",
+        "Seltzer / Vodka Soda",
+        "Snack / Party Mix",
+        "Soft Drinks / Colas",
+        "Sparkling Water",
+        "Spirits / Liquor",
+        "Tea",
+        "Tequila",
+        "Vodka",
+        "Wine"
+    ],
+    "Health and Wellness": [
+        "Acne Products",
+        "Allergy & Sinus Remedies",
+        "Antifungal Products",
+        "Blush",
+        "Body Wash",
+        "Brow and Eye Liner",
+        "Children's Cough & Cold Remedies",
+        "Cold Remedies",
+        "Cosmetic Treatments",
+        "Cough Drops",
+        "Cough Syrup",
+        "Denture Adhesive",
+        "Denture Cleansers",
+        "Dentures",
+        "Deodorants / Antiperspirants",
+        "Diet Control / Weight Management",
+        "Eye Drops",
+        "Eyewear",
+        "Face & Body Skincare",
+        "Facial Cleansers",
+        "Facial Moisturizers",
+        "Feminine Hygiene Products",
+        "Foot Grooming",
+        "Foot Odour / Wetness",
+        "Foundation Make",
+        "Hair Colouring Products",
+        "Hair Conditioners",
+        "Hair Growth Products",
+        "Hair Mousses / Gels / Sprays",
+        "Hair Removal",
+        "Hair Salon",
+        "Hand & Body Cream / Lotion",
+        "Health Care",
+        "In-Home Pregnancy Test",
+        "Laser Eye Surgery",
+        "Laxatives",
+        "Lip Care",
+        "Lipstick / Lipliner / Lipgloss",
+        "Make",
+        "Mascara",
+        "Medical Conditions / Prescription Remedies",
+        "Menopause Remedies",
+        "Mouthwash / Dental Rinse",
+        "Multi",
+        "Nail Care Products & Polish",
+        "Nail Salon",
+        "Nasal Spray",
+        "Natural Based Cough and Cold Remedies",
+        "Non-Prescription Products For Preventing Heart Attack / Stroke",
+        "Pain Relievers",
+        "Pain Relievers For Arthritis / Rheumatism",
+        "Pain Relievers For Back Pain",
+        "Pain Relievers For Headaches",
+        "Pain Relievers For Muscle / Body Pain",
+        "Perfume & Cologne",
+        "Pre-Menstrual / Period Pain Remedies",
+        "Saline Nasal Spray",
+        "Shampoo",
+        "Smoking Products",
+        "Sore Throat Remedies",
+        "Suntan & Sunscreen Products",
+        "Tooth Whitening Systems",
+        "Toothbrushes",
+        "Toothpaste",
+        "Upset Stomach Remedies",
+        "Vitamins, Minerals, Herbal & Nutritional Supplements",
+        "Wart Treatments",
+        "Yeast Infection Products"
+    ],
+    "Home": [
+        "Building / Home Improvement Items / Tools",
+        "Coffee Machine",
+        "Furniture and Home Accessories",
+        "Gardening",
+        "Home Electronics / Entertainment Products",
+        "Home Heating",
+        "Home Improvements",
+        "Household Appliances & Durables",
+        "Paint and Stain",
+        "Real Estate",
+        "Video Games",
+        "Weekend / Vacation Home",
+        "Your Home"
+    ],
+    "Lifestyle": [
+        "Vehicles / Makes / Models",
+        "Airlines / Aeroports",
+        "Attractions",
+        "Auto Insurance",
+        "Automotive Services / Supplies / Products",
+        "Betting Games",
+        "Business Travel",
+        "Car, Truck Or SUV Rental",
+        "Casinos",
+        "Children In Sports",
+        "Cruise Ships",
+        "Electric Vehicles",
+        "Events: Personally Attended / Visited Past 12 Mths",
+        "Fitness Club",
+        "Hotels and Motels",
+        "Intent to Purchase / Lease Vehicle / Motorcycle",
+        "Leisure Activities Past Month",
+        "Leisure Activities: Personally Attend",
+        "Leisure Activities: Personally Participate",
+        "Lottery Tickets",
+        "Lottery, Casino and Consumer Shows",
+        "Mileage",
+        "Movies",
+        "Packages / Tour Operators / Arrangements / Websites",
+        "Public Activities",
+        "Restaurants / Bars / Fast Food",
+        "Roadside Assistance Programs",
+        "Sports & Recreation Equipment / Goods",
+        "Sports / Entertainment Venues: Personally Visited Past 12 Mos",
+        "Taxis",
+        "Tires",
+        "Travel in Canada",
+        "Travel Insurance",
+        "Travel Outside Canada",
+        "Vacation / Personal Travel",
+        "Vehicle Maintenance for Most Recently Acquired Vehicle",
+        "Vehicle Ownership / Purchase for Most Recently Acquired Vehicle",
+        "Vehicle Type / Country of Origin",
+    ],
+    "Location": [
+        "Geography",
+    ],
+    "Media": [
+        "Flyers and Out Of Home Usage",
+        "Internet Usage",
+        "Magazine Usage",
+        "Newspaper Usage",
+        "Radio Usage",
+        "Television Usage"
+    ],
+    "Media Usage": [
+        "Internet / Social Media"
+    ],
+    "Professional Life": [
+        "Banking & Financial Services",
+        "Business Purchase Involvement",
+        "Business Purchasing / Leasing Decisions",
+        "Credit Cards",
+        "Crypto Currency",
+        "Donations",
+        "Financial Planner / Advisor Services",
+        "Home Office / Business",
+        "Homeowners Or Personal Property Insurance",
+        "Life Insurance",
+        "Loan / Line Of Credit",
+        "Mobile Banking (using smartphone / tablet)",
+        "Mobile Wallet / Mobile Payment Systems",
+        "Mortgages",
+        "Mutual Funds",
+        "Online Banking",
+        "Online Trading / Brokerage / Investments",
+        "Private Health Insurance",
+        "RRSP's",
+        "Stocks / Bonds",
+        "TFSA (Tax Free Savings Account)",
+        "Total Investments And Savings",
+        "Wills / Estate Planning"
+    ],
+    "Segments": [
+        "Arima"
+    ],
+    "Shopping": [
+        "Air Fresheners, Carpet & Room Deodorizers",
+        "All Purpose Household Cleaners",
+        "Automatic Dishwasher Detergent",
+        "Baking Chips",
+        "Baking Ingredients",
+        "Bathroom Cleaners",
+        "Books",
+        "Bottled Seasoning Sauce",
+        "Boxed Chocolates",
+        "Boxed Dried Macaroni & Cheese",
+        "Bread",
+        "Breakfast Sandwiches",
+        "Butter",
+        "Canned Food",
+        "Carpet & Rug Cleaners",
+        "Cat Food",
+        "Cat Food",
+        "Children's Clothing / Shoes",
+        "Children's Products",
+        "Chocolate Milk",
+        "Cold Cereals",
+        "Convenience Stores",
+        "Cookies",
+        "Crackers",
+        "Cream",
+        "Cream Cheese",
+        "Customer Reward Programs",
+        "Deli Dips / Ready to Serve",
+        "Dishwashing Liquid",
+        "Disinfectant Sprays",
+        "Dog Biscuits Or Treats",
+        "Dog Food",
+        "Drug Stores",
+        "Dust / Dirt Cleaning System",
+        "Eggs",
+        "Fabric Refreshers",
+        "Facial Tissues",
+        "Flavoured & Seasoned Rice",
+        "Food Delivery Services",
+        "Food Shopping",
+        "Footwear",
+        "Frozen Fish",
+        "Frozen Meals",
+        "Frozen Pizza",
+        "Frozen Pizza Snacks",
+        "Frozen Potato Products (i.e. French fries, Potato wedges, Hash browns)",
+        "Frozen Vegetables",
+        "Fruit Juices & Drinks",
+        "Granola / Cereal Bars",
+        "Greeting Cards",
+        "Grocery Delivery Providers",
+        "Household Cleaners",
+        "Ice Cream / Ice Milk / Sherbet & Frozen Yogurt",
+        "Instant Breakfast / Breakfast Shakes",
+        "Instant Hot Cereals",
+        "Jewellery",
+        "Ketchup",
+        "Lactose Free Dairy Products",
+        "Laundry Stain Removers",
+        "Margarine",
+        "Mayonnaise / Mayonnaise Type Salad Dressing",
+        "Meal Kits Delivery Services",
+        "Men's Clothing",
+        "Milk",
+        "Milk Alternatives",
+        "Natural Cheese",
+        "Online Shipping Services",
+        "Orange Juice",
+        "Organic Foods",
+        "Paper Napkins",
+        "Paper Towels",
+        "Pasta",
+        "Pasta Sauce",
+        "Peanut Butter",
+        "Pet Food Where Bought",
+        "Pet Ownership",
+        "Plain Rice",
+        "Plastic Food Containers",
+        "Plastic Storage Bags",
+        "Processed Cheese",
+        "Rolled Oats / Oatmeal / Hot Cereals",
+        "Salad Dressing",
+        "Salad / Cooking Oil",
+        "Salsa",
+        "Shopping In-Store / Online",
+        "Shopping Malls, Centres or Districts",
+        "Soap & Detergents For Fine Fabrics",
+        "Soap & Detergents For Regular Laundry",
+        "Soup",
+        "Spreads",
+        "Toaster Products",
+        "Toilet Paper",
+        "Tomato And Vegetable Juices",
+        "Toys & Games",
+        "Vegan / Plant Based Packaged Products",
+        "Women's Clothing",
+        "Yogurt"
+    ]
+}
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
@@ -13,6 +338,7 @@ import requests
 import pickle
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
 
 load_dotenv()
 ARIMA_USER = os.getenv("ARIMA_USER")
@@ -22,6 +348,7 @@ chrome_options = Options()
 chrome_options.add_argument("--ignore-certificate-errors")
 # chrome_options.add_argument("user-data-dir=selenium")
 # chrome_options.add_argument("--headless")
+chrome_options.add_argument("window-size=3840x2160")
 
 prefs = {"download.default_directory" : "C:\\Users\\MSadm\\Documents\\Sadman\\code\\arima\\arima-cli\\data"}
 chrome_options.add_experimental_option("prefs",prefs)
@@ -103,54 +430,35 @@ def get_theme_or_cat(driver, wait, theme_name):
     while not theme_found:
         try:
             theme = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p[contains(text(), '" + theme_name + "')]")))
-            theme.click()
+            actions = ActionChains(driver)
+            actions.move_to_element(theme).perform()
+            driver.execute_script("arguments[0].click();", theme)
             theme_found = True
         except StaleElementReferenceException:
             continue
 
-# get_theme_or_cat(driver, wait, "Demography")
-# print("7")
+# theme = "Demography"
+theme = "Shopping"
+# theme = "Health and Wellness"
+if theme not in themes:
+    print(f"Theme {theme} not found")
+    exit(1)
 
-# get_theme_or_cat(driver, wait, "Household Status")
-# print("8")
+# category = "Household Status"
+category = "Deli Dips / Ready to Serve"
+# category = "Acne Products"
+if category not in categories[theme]:
+    print(f"Category {category} not found")
+    exit(1)
 
-def build_var_lists(driver, base_xpath, vars, start, initial = True):
-    if initial:
-        try:
-            element = driver.find_element(By.XPATH, f"{base_xpath}")
-            if element.text != "":
-                vars.append(element.text)
-        except NoSuchElementException:
-            pass
+get_theme_or_cat(driver, wait, theme)
+time.sleep(5)
 
-    i = start
-    invalid_count = 0
-    while True:
-        try:
-            element = driver.find_element(By.XPATH, f"{base_xpath}[{i}]")
-            if element.text != "":
-                vars.append(element.text)
-        except NoSuchElementException:
-            invalid_count += 1
-            if invalid_count > 10:
-                return None
-            continue
-        i += 1
+get_theme_or_cat(driver, wait, category)
 
-themes = []
-build_var_lists(driver, "//div[1]/div/div", themes, start = 3, initial = False)
-print("themes = ", themes)
+print("Selected theme and category")
 
-time.sleep(10)
-
-for theme in themes:
-    print("theme = ", theme)
-    get_theme_or_cat(driver, wait, theme)
-    categories = []
-    build_var_lists(driver, "//div[2]/div[2]/div", themes, start = 1)
-    print("categories = ", themes)
-
-time.sleep(10)
+time.sleep(5)
 
 from selenium.webdriver.common.by import By
 
@@ -174,6 +482,7 @@ def click_nth_child_with_text(driver, base_selector, text):
         element.click()
     else:
         print("Element not found")
+
 
 click_nth_child_with_text(driver, ".css-wo8ext", "Head of Household")
 
@@ -251,10 +560,10 @@ time.sleep(1)
 
 from selenium.common.exceptions import NoSuchElementException
 
-def find_div_with_text(driver, base_xpath, text):
+def find_div_with_text(driver, base_xpath, text, display=False):
     try:
         element = driver.find_element(By.XPATH, f"{base_xpath}")
-        print("0 ", element.text)
+        if display: print("0 ", element.text)
         if text in element.text:
             return element
     except NoSuchElementException:
@@ -264,7 +573,7 @@ def find_div_with_text(driver, base_xpath, text):
     while True:
         try:
             element = driver.find_element(By.XPATH, f"{base_xpath}[{i}]")
-            print(i, " ", element.text)
+            if display: print(i, " ", element.text)
             if text in element.text:
                 return element
         except NoSuchElementException:
