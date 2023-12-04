@@ -339,6 +339,7 @@ import pickle
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 
 load_dotenv()
 ARIMA_USER = os.getenv("ARIMA_USER")
@@ -438,29 +439,41 @@ def get_theme_or_cat(driver, wait, theme_name):
             continue
 
 # theme = "Demography"
-theme = "Shopping"
 # theme = "Health and Wellness"
+theme = "Shopping"
 if theme not in themes:
     print(f"Theme {theme} not found")
     exit(1)
 
 # category = "Household Status"
-category = "Deli Dips / Ready to Serve"
 # category = "Acne Products"
+category = "Deli Dips / Ready to Serve"
 if category not in categories[theme]:
     print(f"Category {category} not found")
     exit(1)
 
 get_theme_or_cat(driver, wait, theme)
-time.sleep(5)
-
 get_theme_or_cat(driver, wait, category)
 
 print("Selected theme and category")
 
-time.sleep(5)
 
-from selenium.webdriver.common.by import By
+
+
+
+def get_all_texts(driver, base_selector):
+    i = 1
+    texts = []
+    while True:
+        try:
+            element = driver.find_element(By.CSS_SELECTOR, f"{base_selector}:nth-child({i})")
+            actions = ActionChains(driver)
+            actions.move_to_element(element).perform()
+            texts.append(element.text)
+        except:
+            break
+        i += 1
+    return texts
 
 def find_nth_child_with_text(driver, base_selector, text):
     i = 1
@@ -484,9 +497,16 @@ def click_nth_child_with_text(driver, base_selector, text):
         print("Element not found")
 
 
-click_nth_child_with_text(driver, ".css-wo8ext", "Head of Household")
+# click_nth_child_with_text(driver, ".css-wo8ext", "Head of Household")
+# click_nth_child_with_text(driver, ".css-wo8ext", "Grandparent")
 
-click_nth_child_with_text(driver, ".css-wo8ext", "Grandparent")
+texts = get_all_texts(driver, ".css-wo8ext")
+print("texts = ", texts)
+time.sleep(10)
+click_nth_child_with_text(driver, ".css-wo8ext", "# of Containers Used In Hhld. In Past Month")
+time.sleep(10)
+click_nth_child_with_text(driver, ".css-wo8ext", "# of Times Used Snack - Packs in Past Month")
+time.sleep(10)
 
 print("BOTH CHECKBOXES CLICKED")
 time.sleep(3)
