@@ -426,6 +426,10 @@ try:
 except TimeoutException:
     print("Timed out waiting for 'Please wait' text to disappear")
 
+elements = driver.find_elements(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p")
+texts = [element.text for element in elements]
+print("1texts = ", texts)
+
 def get_theme_or_cat(driver, wait, theme_name):
     theme_found = False
     while not theme_found:
@@ -457,8 +461,9 @@ get_theme_or_cat(driver, wait, category)
 
 print("Selected theme and category")
 
-
-
+elements = driver.find_elements(By.XPATH, "//div[contains(@class, 'MuiGrid-root') and contains(@class, 'MuiGrid-container') and contains(@class, 'MuiGrid-wrap-xs-nowrap') and contains(@class, 'css-7ftst8')]//p")
+texts = [element.text for element in elements]
+print("2texts = ", texts)
 
 
 def get_all_texts(driver, base_selector):
